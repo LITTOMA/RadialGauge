@@ -161,4 +161,13 @@ public partial class RadialGauge
         get => (Color)GetValue(NeedleColorProperty);
         set => SetValue(NeedleColorProperty, value);
     }
+
+    public static readonly BindableProperty IsInteractiveProperty =
+        BindableProperty.Create(nameof(IsInteractive), typeof(bool), typeof(RadialGauge), false);
+
+    public bool IsInteractive
+    {
+        get => (bool)GetValue(IsInteractiveProperty);
+        set => SetValue(IsInteractiveProperty, value);
+    }
 }

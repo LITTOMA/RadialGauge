@@ -16,6 +16,7 @@
                 GaugeArcThickness="15"
                 HeightRequest="400"
                 HorizontalOptions="Center"
+                IsInteractive="True"
                 MaxValue="100"
                 MinValue="0"
                 NeedleColor="Red"

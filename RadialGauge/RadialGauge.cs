@@ -3,20 +3,25 @@ namespace RadialGauge;
 public partial class RadialGauge : GraphicsView, IDrawable
 {
     // IDrawable接口的实现
+    // Implmentation of IDrawable interface
     public void Draw(ICanvas canvas, RectF dirtyRect)
     {
         // 获取控件的中心点
+        // Get the center point of the control
         float centerX = dirtyRect.Width / 2;
         float centerY = dirtyRect.Height / 2;
 
         // 计算指针的角度
+        // Calculate the angle of the needle
         float valuePercentage = (_animatedValue - MinValue) / (MaxValue - MinValue);
         float needleAngle = StartAngle + (SweepAngle * valuePercentage);
 
         // 计算表盘的半径
-        float radius = Math.Min(centerX, centerY) - 10 - GaugeArcThickness;  // 减10为了留一些边距
+        // Calculate the radius of the gauge
+        float radius = Math.Min(centerX, centerY) - 10 - GaugeArcThickness;  // 减10为了留一些边距 // Subtract 10 to leave some margin
 
         // 绘制表盘背景和填充
+        // Draw the gauge background and fill
         var arcX = centerX - radius;
         var arcY = centerY - radius;
         var arcRect = new RectF(arcX, arcY, radius * 2, radius * 2);
@@ -32,18 +37,22 @@ public partial class RadialGauge : GraphicsView, IDrawable
         canvas.DrawArc(arcRect, gaugeStartAngle, gaugeFillStopAngle, true, false);
 
         // 计算指针的终点坐标，使用 NeedleLength 属性调整长度
+        // Calculate the end point of the needle, use the NeedleLength property to adjust the length
         double needleEndX = centerX + (radius * NeedleLength * Math.Cos(needleAngle * Math.PI / 180));
         double needleEndY = centerY + (radius * NeedleLength * Math.Sin(needleAngle * Math.PI / 180));
 
         // 绘制指针
+        // Draw the needle
         canvas.StrokeColor = NeedleColor;
         canvas.StrokeSize = NeedleThickness;
         canvas.DrawLine(centerX, centerY, (float)needleEndX, (float)needleEndY);
 
         // 计算刻度的数量
+        // Calculate the number of ticks
         int tickCount = (int)((MaxValue - MinValue) / TickInterval) + 1;
 
         // 绘制刻度
+        // Draw the ticks
         for (int i = 0; i < tickCount; i++)
         {
             float tickValue = MinValue + (i * TickInterval);
@@ -51,12 +60,14 @@ public partial class RadialGauge : GraphicsView, IDrawable
             float tickAngle = StartAngle + (SweepAngle * tickPercentage);
 
             // 计算刻度的起点和终点坐标
+            // Calculate the start and end points of the tick
             float tickStartX = centerX + ((radius - TickLength - GaugeArcThickness) * MathF.Cos(tickAngle * MathF.PI / 180));
             float tickStartY = centerY + ((radius - TickLength - GaugeArcThickness) * MathF.Sin(tickAngle * MathF.PI / 180));
             float tickEndX = centerX + ((radius - GaugeArcThickness) * MathF.Cos(tickAngle * MathF.PI / 180));
             float tickEndY = centerY + ((radius - GaugeArcThickness) * MathF.Sin(tickAngle * MathF.PI / 180));
 
             // 绘制刻度线
+            // Draw the tick line
             canvas.StrokeColor = Colors.Black;
             canvas.StrokeSize = 2;
             canvas.DrawLine(tickStartX, tickStartY, tickEndX, tickEndY);
@@ -66,10 +77,12 @@ public partial class RadialGauge : GraphicsView, IDrawable
         canvas.FontSize = LabelFontSize;
 
         // 绘制最小值标签
+        // Draw the minimum value label
         float minLabelX = centerX + (radius * MathF.Cos(StartAngle * MathF.PI / 180));
         canvas.DrawString(MinValue.ToString(), minLabelX, labelY, HorizontalAlignment.Center);
 
         // 绘制最大值标签
+        // Draw the maximum value label
         float maxLabelX = centerX + (radius * MathF.Cos((StartAngle + SweepAngle) * MathF.PI / 180));
         canvas.DrawString(MaxValue.ToString(), maxLabelX, labelY, HorizontalAlignment.Center);
 
@@ -99,11 +112,44 @@ public partial class RadialGauge : GraphicsView, IDrawable
         }
         else
         {
-            float step = (_targetValue - _animatedValue) * 0.1f;  // 简单的线性插值
+            float step = (_targetValue - _animatedValue) * 0.1f;  // 简单的线性插值 // Simple linear interpolation
             _animatedValue += step;
         }
 
-        Invalidate();  // 请求重绘控件
+        Invalidate();  // 请求重绘控件 // Request a redraw of the control
+    }
+
+    private void OnPointerMoved(object sender, PointerEventArgs e)
+    {
+        if (!IsInteractive)
+            return;
+
+        var position = e.GetPosition(this);
+        // 根据 position 和控件的几何属性计算新的指针值
+        if (position is Point p)
+        {
+            var newValue = CalculateValueFromPosition(p);
+            Value = newValue;
+        }
+    }
+
+    private float CalculateAngle(Point position)
+    {
+        double centerX = Width / 2;
+        double centerY = Height / 2;
+        double deltaX = position.X - centerX;
+        double deltaY = position.Y - centerY;
+        float angle = (float)(Math.Atan2(deltaY, deltaX) * (180 / Math.PI));
+        return angle;
+    }
+    
+    private float CalculateValueFromPosition(Point position)
+    {
+        float angle = CalculateAngle(position);
+        float normalizedAngle = NormalizeAngle(angle - StartAngle);
+        float valuePercentage = normalizedAngle / SweepAngle;
+        float newValue = MinValue + valuePercentage * (MaxValue - MinValue);
+        return newValue;
     }
 
 
@@ -111,8 +157,12 @@ public partial class RadialGauge : GraphicsView, IDrawable
     {
         Drawable = this;
 
-        _animationTimer = new System.Timers.Timer(16);  // 设置动画帧率为60fps
+        _animationTimer = new System.Timers.Timer(16);  // 设置动画帧率为60fps // Set the animation frame rate to 60fps
         _animationTimer.Elapsed += OnAnimationTick;
+
+        //var pointerGesture = new PointerGestureRecognizer();
+        //pointerGesture.PointerMoved += OnPointerMoved;
+        //GestureRecognizers.Add(pointerGesture);
     }
 
     private float _animatedValue;
