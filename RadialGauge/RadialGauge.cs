@@ -86,6 +86,18 @@ public partial class RadialGauge : GraphicsView, IDrawable
         float maxLabelX = centerX + (radius * MathF.Cos((StartAngle + SweepAngle) * MathF.PI / 180));
         canvas.DrawString(MaxValue.ToString(), maxLabelX, labelY, HorizontalAlignment.Center);
 
+        // 绘制当前值标签
+        // Draw the current value label
+        canvas.FontSize = LabelFontSize;
+        float valueLabelX = centerX;
+        float valueLabelY = centerY + LabelFontSize;
+        canvas.DrawString(_animatedValue.ToString(ValueLableFormat), valueLabelX, valueLabelY, HorizontalAlignment.Center);
+
+        // 绘制单位标签
+        // Draw the units label
+        float unitsLabelY = valueLabelY + LabelFontSize + 8;
+        canvas.DrawString(Unit, valueLabelX, unitsLabelY, HorizontalAlignment.Center);
+
     }
 
     private float NormalizeAngle(float angle)

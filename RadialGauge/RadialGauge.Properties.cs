@@ -170,4 +170,20 @@ public partial class RadialGauge
         get => (bool)GetValue(IsInteractiveProperty);
         set => SetValue(IsInteractiveProperty, value);
     }
+
+    public static readonly BindableProperty ValueLableFormatProperty =
+        BindableProperty.Create(nameof(ValueLableFormat), typeof(string), typeof(RadialGauge), "F2", propertyChanged: (bindable, oldValue, newValue) => { if (bindable is RadialGauge radialGauge) { radialGauge.Invalidate(); } });
+    public string ValueLableFormat
+    {
+        get => (string)GetValue(ValueLableFormatProperty);
+        set => SetValue(ValueLableFormatProperty, value);
+    }
+
+    public static readonly BindableProperty UnitProperty =
+        BindableProperty.Create(nameof(Unit), typeof(string), typeof(RadialGauge), "Unit", propertyChanged: (bindable, oldValue, newValue) => { if (bindable is RadialGauge radialGauge) { radialGauge.Invalidate(); radialGauge.InvalidateMeasure(); } });
+    public string Unit
+    {
+        get => (string)GetValue(UnitProperty);
+        set => SetValue(UnitProperty, value);
+    }
 }
