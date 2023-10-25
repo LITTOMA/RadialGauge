@@ -14,10 +14,12 @@ public partial class RadialGauge : GraphicsView, IDrawable
         float needleAngle = StartAngle + (SweepAngle * valuePercentage);
 
         // 计算表盘的半径
-        float radius = Math.Min(centerX, centerY) - 10;  // 减10为了留一些边距
+        float radius = Math.Min(centerX, centerY) - 10 - GaugeArcThickness;  // 减10为了留一些边距
 
         // 绘制表盘背景和填充
-        var arcRect = new RectF(centerX - radius, centerY - radius, centerX + radius - GaugeArcThickness, radius + centerY - GaugeArcThickness);
+        var arcX = centerX - radius;
+        var arcY = centerY - radius;
+        var arcRect = new RectF(arcX, arcY, radius * 2, radius * 2);
         var gaugeStartAngle = NormalizeAngle(StartAngle);
         var gaugeBackgroundStopAngle = NormalizeAngle(StartAngle + SweepAngle);
         var gaugeFillStopAngle = NormalizeAngle(needleAngle);
@@ -60,7 +62,7 @@ public partial class RadialGauge : GraphicsView, IDrawable
             canvas.DrawLine(tickStartX, tickStartY, tickEndX, tickEndY);
         }
 
-        float labelY = centerY + (radius * MathF.Sin(StartAngle * MathF.PI / 180)) + LabelFontSize + 4;
+        float labelY = centerY + (radius * MathF.Sin(StartAngle * MathF.PI / 180)) + LabelFontSize + GaugeArcThickness;
         canvas.FontSize = LabelFontSize;
 
         // 绘制最小值标签

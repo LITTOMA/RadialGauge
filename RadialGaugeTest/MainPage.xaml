@@ -13,14 +13,15 @@
 
             <rg:RadialGauge
                 x:Name="gauge"
-                GaugeArcThickness="20"
+                GaugeArcThickness="15"
                 HeightRequest="400"
                 HorizontalOptions="Center"
                 MaxValue="100"
                 MinValue="0"
                 NeedleColor="Red"
-                NeedleLength="1"
+                NeedleLength=".5"
                 NeedleThickness="5"
+                TickLength="5"
                 WidthRequest="400"
                 Value="9" />
 
