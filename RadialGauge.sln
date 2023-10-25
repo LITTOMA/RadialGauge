@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34212.112
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RadialGauge", "RadialGauge\RadialGauge.csproj", "{4A60E93C-57C9-4CD1-B6C3-A00D5665B524}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RadialGaugeTest", "RadialGaugeTest\RadialGaugeTest.csproj", "{23407824-DAF1-4135-9431-02D22AD295AE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4A60E93C-57C9-4CD1-B6C3-A00D5665B524}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A60E93C-57C9-4CD1-B6C3-A00D5665B524}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A60E93C-57C9-4CD1-B6C3-A00D5665B524}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A60E93C-57C9-4CD1-B6C3-A00D5665B524}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23407824-DAF1-4135-9431-02D22AD295AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23407824-DAF1-4135-9431-02D22AD295AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23407824-DAF1-4135-9431-02D22AD295AE}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{23407824-DAF1-4135-9431-02D22AD295AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23407824-DAF1-4135-9431-02D22AD295AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23407824-DAF1-4135-9431-02D22AD295AE}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9E28C2FF-ACF3-421E-B82B-DF2594577272}
+	EndGlobalSection
+EndGlobal
