@@ -122,20 +122,20 @@ public partial class RadialGauge
         set => SetValue(GaugeFillColorProperty, value);
     }
 
-    public static readonly BindableProperty WarningValueProperty =
-        BindableProperty.Create(nameof(WarningValue), typeof(float), typeof(RadialGauge), 80f, propertyChanged: (bindable, oldValue, newValue) => { if (bindable is RadialGauge radialGauge) { radialGauge.Invalidate(); } });
-    public float WarningValue
+    public static readonly BindableProperty AlertValueProperty =
+        BindableProperty.Create(nameof(AlertValue), typeof(float), typeof(RadialGauge), 80f, propertyChanged: (bindable, oldValue, newValue) => { if (bindable is RadialGauge radialGauge) { radialGauge.Invalidate(); } });
+    public float AlertValue
     {
-        get => (float)GetValue(WarningValueProperty);
-        set => SetValue(WarningValueProperty, value);
+        get => (float)GetValue(AlertValueProperty);
+        set => SetValue(AlertValueProperty, value);
     }
 
-    public static readonly BindableProperty WarningFillColorProperty =
-        BindableProperty.Create(nameof(WarningFillColor), typeof(Color), typeof(RadialGauge), Colors.Red, propertyChanged: (bindable, oldValue, newValue) => { if (bindable is RadialGauge radialGauge) { radialGauge.Invalidate(); } });
-    public Color WarningFillColor
+    public static readonly BindableProperty AlertFillColorProperty =
+        BindableProperty.Create(nameof(AlertFillColor), typeof(Color), typeof(RadialGauge), Colors.Red, propertyChanged: (bindable, oldValue, newValue) => { if (bindable is RadialGauge radialGauge) { radialGauge.Invalidate(); } });
+    public Color AlertFillColor
     {
-        get => (Color)GetValue(WarningFillColorProperty);
-        set => SetValue(WarningFillColorProperty, value);
+        get => (Color)GetValue(AlertFillColorProperty);
+        set => SetValue(AlertFillColorProperty, value);
     }
 
     public static readonly BindableProperty LabelFontSizeProperty =

@@ -33,7 +33,7 @@ public partial class RadialGauge : GraphicsView, IDrawable
         canvas.StrokeSize = GaugeArcThickness;
         canvas.StrokeColor = GaugeBackgroundColor;
         canvas.DrawArc(arcRect, gaugeStartAngle, gaugeBackgroundStopAngle, true, false);
-        canvas.StrokeColor = GaugeFillColor;
+        canvas.StrokeColor = _animatedValue >= AlertValue ? AlertFillColor : GaugeFillColor;
         canvas.DrawArc(arcRect, gaugeStartAngle, gaugeFillStopAngle, true, false);
 
         // 计算指针的终点坐标，使用 NeedleLength 属性调整长度
