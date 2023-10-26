@@ -131,50 +131,12 @@ public partial class RadialGauge : GraphicsView, IDrawable
         Invalidate();  // 请求重绘控件 // Request a redraw of the control
     }
 
-    private void OnPointerMoved(object sender, PointerEventArgs e)
-    {
-        if (!IsInteractive)
-            return;
-
-        var position = e.GetPosition(this);
-        // 根据 position 和控件的几何属性计算新的指针值
-        if (position is Point p)
-        {
-            var newValue = CalculateValueFromPosition(p);
-            Value = newValue;
-        }
-    }
-
-    private float CalculateAngle(Point position)
-    {
-        double centerX = Width / 2;
-        double centerY = Height / 2;
-        double deltaX = position.X - centerX;
-        double deltaY = position.Y - centerY;
-        float angle = (float)(Math.Atan2(deltaY, deltaX) * (180 / Math.PI));
-        return angle;
-    }
-    
-    private float CalculateValueFromPosition(Point position)
-    {
-        float angle = CalculateAngle(position);
-        float normalizedAngle = NormalizeAngle(angle - StartAngle);
-        float valuePercentage = normalizedAngle / SweepAngle;
-        float newValue = MinValue + valuePercentage * (MaxValue - MinValue);
-        return newValue;
-    }
-
-
     public RadialGauge()
     {
         Drawable = this;
 
         _animationTimer = new System.Timers.Timer(16);  // 设置动画帧率为60fps // Set the animation frame rate to 60fps
         _animationTimer.Elapsed += OnAnimationTick;
-
-        //var pointerGesture = new PointerGestureRecognizer();
-        //pointerGesture.PointerMoved += OnPointerMoved;
-        //GestureRecognizers.Add(pointerGesture);
     }
 
     private float _animatedValue;

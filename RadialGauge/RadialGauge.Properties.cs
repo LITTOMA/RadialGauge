@@ -162,15 +162,6 @@ public partial class RadialGauge
         set => SetValue(NeedleColorProperty, value);
     }
 
-    public static readonly BindableProperty IsInteractiveProperty =
-        BindableProperty.Create(nameof(IsInteractive), typeof(bool), typeof(RadialGauge), false);
-
-    public bool IsInteractive
-    {
-        get => (bool)GetValue(IsInteractiveProperty);
-        set => SetValue(IsInteractiveProperty, value);
-    }
-
     public static readonly BindableProperty ValueLableFormatProperty =
         BindableProperty.Create(nameof(ValueLableFormat), typeof(string), typeof(RadialGauge), "F2", propertyChanged: (bindable, oldValue, newValue) => { if (bindable is RadialGauge radialGauge) { radialGauge.Invalidate(); } });
     public string ValueLableFormat

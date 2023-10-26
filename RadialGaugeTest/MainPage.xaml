@@ -16,7 +16,6 @@
                 GaugeArcThickness="15"
                 HeightRequest="400"
                 HorizontalOptions="Center"
-                IsInteractive="True"
                 LabelFontSize="20"
                 MaxValue="100"
                 MinValue="0"
