@@ -45,6 +45,6 @@
 	
 	<ItemGroup>
 		<None Include="../LICENSE" Pack="true" PackagePath=""/>
-		<None Include="../README.nuget.md" Pack="true" PackagePath="\"/>
+		<None Include="../README.nuget.md" Pack="true" PackagePath="README.md"/>
 	</ItemGroup>
 </Project>
