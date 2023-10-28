@@ -14,7 +14,7 @@ public partial class RadialGauge : GraphicsView, IDrawable
         // 计算指针的角度
         // Calculate the angle of the needle
         float valuePercentage = (_animatedValue - MinValue) / (MaxValue - MinValue);
-        float needleAngle = StartAngle + (SweepAngle * valuePercentage);
+        float needleAngle = CalculateAngle(valuePercentage);
 
         // 计算表盘的半径
         // Calculate the radius of the gauge
@@ -25,9 +25,9 @@ public partial class RadialGauge : GraphicsView, IDrawable
         var arcX = centerX - radius;
         var arcY = centerY - radius;
         var arcRect = new RectF(arcX, arcY, radius * 2, radius * 2);
-        var gaugeStartAngle = NormalizeAngle(StartAngle);
-        var gaugeBackgroundStopAngle = NormalizeAngle(StartAngle + SweepAngle);
-        var gaugeFillStopAngle = NormalizeAngle(needleAngle);
+        var gaugeStartAngle = ArcAngle(StartAngle);
+        var gaugeBackgroundStopAngle = ArcAngle(StartAngle + SweepAngle);
+        var gaugeFillStopAngle = ArcAngle(needleAngle);
 
         canvas.StrokeLineCap = LineCap.Round;
         canvas.StrokeSize = GaugeArcThickness;
@@ -38,14 +38,13 @@ public partial class RadialGauge : GraphicsView, IDrawable
 
         // 计算指针的终点坐标，使用 NeedleLength 属性调整长度
         // Calculate the end point of the needle, use the NeedleLength property to adjust the length
-        double needleEndX = centerX + (radius * NeedleLength * Math.Cos(needleAngle * Math.PI / 180));
-        double needleEndY = centerY + (radius * NeedleLength * Math.Sin(needleAngle * Math.PI / 180));
+        var needleEnd = CalculatePoint(centerX, centerY, radius * NeedleLength, needleAngle);
 
         // 绘制指针
         // Draw the needle
         canvas.StrokeColor = NeedleColor;
         canvas.StrokeSize = NeedleThickness;
-        canvas.DrawLine(centerX, centerY, (float)needleEndX, (float)needleEndY);
+        canvas.DrawLine(centerX, centerY, (float)needleEnd.X, (float)needleEnd.Y);
 
         // 计算刻度的数量
         // Calculate the number of ticks
@@ -57,20 +56,18 @@ public partial class RadialGauge : GraphicsView, IDrawable
         {
             float tickValue = MinValue + (i * TickInterval);
             float tickPercentage = (tickValue - MinValue) / (MaxValue - MinValue);
-            float tickAngle = StartAngle + (SweepAngle * tickPercentage);
+            float tickAngle = CalculateAngle(tickPercentage);
 
             // 计算刻度的起点和终点坐标
             // Calculate the start and end points of the tick
-            float tickStartX = centerX + ((radius - TickLength - GaugeArcThickness) * MathF.Cos(tickAngle * MathF.PI / 180));
-            float tickStartY = centerY + ((radius - TickLength - GaugeArcThickness) * MathF.Sin(tickAngle * MathF.PI / 180));
-            float tickEndX = centerX + ((radius - GaugeArcThickness) * MathF.Cos(tickAngle * MathF.PI / 180));
-            float tickEndY = centerY + ((radius - GaugeArcThickness) * MathF.Sin(tickAngle * MathF.PI / 180));
+            var tickStart = CalculatePoint(centerX, centerY, radius - TickLength - GaugeArcThickness, tickAngle);
+            var tickEnd = CalculatePoint(centerX, centerY, radius - GaugeArcThickness, tickAngle);
 
             // 绘制刻度线
             // Draw the tick line
             canvas.StrokeColor = Colors.Black;
             canvas.StrokeSize = 2;
-            canvas.DrawLine(tickStartX, tickStartY, tickEndX, tickEndY);
+            canvas.DrawLine(tickStart.X, tickStart.Y, tickEnd.X, tickEnd.Y);
         }
 
         float labelY = centerY + (radius * MathF.Sin(StartAngle * MathF.PI / 180)) + LabelFontSize + GaugeArcThickness;
@@ -100,7 +97,19 @@ public partial class RadialGauge : GraphicsView, IDrawable
 
     }
 
-    private float NormalizeAngle(float angle)
+    private float CalculateAngle(float percentage)
+    {
+        return StartAngle + (SweepAngle * percentage);
+    }
+
+    private PointF CalculatePoint(float centerX, float centerY, float radius, float angle)
+    {
+        float x = centerX + (radius * MathF.Cos(angle * MathF.PI / 180));
+        float y = centerY + (radius * MathF.Sin(angle * MathF.PI / 180));
+        return new PointF(x, y);
+    }
+
+    private float ArcAngle(float angle)
     {
         float normalizedAngle = ((angle % 360) + 360) % 360;
         if (normalizedAngle < 180)
