@@ -22,6 +22,7 @@
 		<PackageTags>radial gauge;maui;</PackageTags>
 		<PackageReleaseNotes>First release.</PackageReleaseNotes>
 		<Authors>LITTOMA</Authors>
+		<Version>1.0.1</Version>
 	</PropertyGroup>
 
 	<ItemGroup>

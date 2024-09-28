@@ -41,5 +41,5 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: RadialGauge.nupkg
-        path: RadialGauge/bin/Release/RadialGauge.1.0.0.nupkg
+        path: RadialGauge/bin/Release/RadialGauge.1.0.1.nupkg
       
