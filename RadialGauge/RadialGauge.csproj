@@ -20,7 +20,7 @@
 		<Copyright>2023 (c) LITTOMA</Copyright>
 		<PackageProjectUrl>https://github.com/LITTOMA/RadialGauge</PackageProjectUrl>
 		<PackageTags>radial gauge;maui;</PackageTags>
-		<PackageReleaseNotes>First release.</PackageReleaseNotes>
+		<PackageReleaseNotes>Fix an animation glitch when changing the value range.</PackageReleaseNotes>
 		<Authors>LITTOMA</Authors>
 		<Version>1.0.1</Version>
 	</PropertyGroup>
