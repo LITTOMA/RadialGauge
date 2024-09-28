@@ -120,7 +120,8 @@ public partial class RadialGauge : GraphicsView, IDrawable
 
     public void AnimateTo(float value)
     {
-        _targetValue = value;
+        _animatedValue = Math.Clamp(_animatedValue, MinValue, MaxValue);
+        _targetValue = Math.Clamp(value, MinValue, MaxValue);
         _animationTimer.Start();
     }
 
