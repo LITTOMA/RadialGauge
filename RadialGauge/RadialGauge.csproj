@@ -22,7 +22,7 @@
 		<PackageTags>radial gauge;maui;</PackageTags>
 		<PackageReleaseNotes>Fix an animation glitch when changing the value range.</PackageReleaseNotes>
 		<Authors>LITTOMA</Authors>
-		<Version>1.0.1</Version>
+		<Version>1.0.2</Version>
 	</PropertyGroup>
 
 	<ItemGroup>
