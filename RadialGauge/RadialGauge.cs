@@ -2,25 +2,25 @@ namespace RadialGauge;
 
 public partial class RadialGauge : GraphicsView, IDrawable
 {
-    // IDrawable½Ó¿ÚµÄÊµÏÖ
+    // IDrawableï¿½Ó¿Úµï¿½Êµï¿½ï¿½
     // Implmentation of IDrawable interface
     public void Draw(ICanvas canvas, RectF dirtyRect)
     {
-        // »ñÈ¡¿Ø¼þµÄÖÐÐÄµã
+        // ï¿½ï¿½È¡ï¿½Ø¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½
         // Get the center point of the control
         float centerX = dirtyRect.Width / 2;
         float centerY = dirtyRect.Height / 2;
 
-        // ¼ÆËãÖ¸ÕëµÄ½Ç¶È
+        // ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½Ä½Ç¶ï¿½
         // Calculate the angle of the needle
         float valuePercentage = (_animatedValue - MinValue) / (MaxValue - MinValue);
         float needleAngle = CalculateAngle(valuePercentage);
 
-        // ¼ÆËã±íÅÌµÄ°ë¾¶
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÌµÄ°ë¾¶
         // Calculate the radius of the gauge
-        float radius = Math.Min(centerX, centerY) - 10 - GaugeArcThickness;  // ¼õ10ÎªÁËÁôÒ»Ð©±ß¾à // Subtract 10 to leave some margin
+        float radius = Math.Min(centerX, centerY) - 10 - GaugeArcThickness;  // ï¿½ï¿½10Îªï¿½ï¿½ï¿½ï¿½Ò»Ð©ï¿½ß¾ï¿½ // Subtract 10 to leave some margin
 
-        // »æÖÆ±íÅÌ±³¾°ºÍÌî³ä
+        // ï¿½ï¿½ï¿½Æ±ï¿½ï¿½Ì±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         // Draw the gauge background and fill
         var arcX = centerX - radius;
         var arcY = centerY - radius;
@@ -36,21 +36,21 @@ public partial class RadialGauge : GraphicsView, IDrawable
         canvas.StrokeColor = _animatedValue >= AlertValue ? AlertFillColor : GaugeFillColor;
         canvas.DrawArc(arcRect, gaugeStartAngle, gaugeFillStopAngle, true, false);
 
-        // ¼ÆËãÖ¸ÕëµÄÖÕµã×ø±ê£¬Ê¹ÓÃ NeedleLength ÊôÐÔµ÷Õû³¤¶È
+        // ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½ï¿½ê£¬Ê¹ï¿½ï¿½ NeedleLength ï¿½ï¿½ï¿½Ôµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         // Calculate the end point of the needle, use the NeedleLength property to adjust the length
         var needleEnd = CalculatePoint(centerX, centerY, radius * NeedleLength, needleAngle);
 
-        // »æÖÆÖ¸Õë
+        // ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½
         // Draw the needle
         canvas.StrokeColor = NeedleColor;
         canvas.StrokeSize = NeedleThickness;
         canvas.DrawLine(centerX, centerY, (float)needleEnd.X, (float)needleEnd.Y);
 
-        // ¼ÆËã¿Ì¶ÈµÄÊýÁ¿
+        // ï¿½ï¿½ï¿½ï¿½Ì¶Èµï¿½ï¿½ï¿½ï¿½ï¿½
         // Calculate the number of ticks
         int tickCount = (int)((MaxValue - MinValue) / TickInterval) + 1;
 
-        // »æÖÆ¿Ì¶È
+        // ï¿½ï¿½ï¿½Æ¿Ì¶ï¿½
         // Draw the ticks
         for (int i = 0; i < tickCount; i++)
         {
@@ -58,12 +58,12 @@ public partial class RadialGauge : GraphicsView, IDrawable
             float tickPercentage = (tickValue - MinValue) / (MaxValue - MinValue);
             float tickAngle = CalculateAngle(tickPercentage);
 
-            // ¼ÆËã¿Ì¶ÈµÄÆðµãºÍÖÕµã×ø±ê
+            // ï¿½ï¿½ï¿½ï¿½Ì¶Èµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Õµï¿½ï¿½ï¿½ï¿½ï¿½
             // Calculate the start and end points of the tick
             var tickStart = CalculatePoint(centerX, centerY, radius - TickLength - GaugeArcThickness, tickAngle);
             var tickEnd = CalculatePoint(centerX, centerY, radius - GaugeArcThickness, tickAngle);
 
-            // »æÖÆ¿Ì¶ÈÏß
+            // ï¿½ï¿½ï¿½Æ¿Ì¶ï¿½ï¿½ï¿½
             // Draw the tick line
             canvas.StrokeColor = Colors.Black;
             canvas.StrokeSize = 2;
@@ -73,24 +73,24 @@ public partial class RadialGauge : GraphicsView, IDrawable
         float labelY = centerY + (radius * MathF.Sin(StartAngle * MathF.PI / 180)) + LabelFontSize + GaugeArcThickness;
         canvas.FontSize = LabelFontSize;
 
-        // »æÖÆ×îÐ¡Öµ±êÇ©
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡Öµï¿½ï¿½Ç©
         // Draw the minimum value label
         float minLabelX = centerX + (radius * MathF.Cos(StartAngle * MathF.PI / 180));
         canvas.DrawString(MinValue.ToString(), minLabelX, labelY, HorizontalAlignment.Center);
 
-        // »æÖÆ×î´óÖµ±êÇ©
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½ï¿½Ç©
         // Draw the maximum value label
         float maxLabelX = centerX + (radius * MathF.Cos((StartAngle + SweepAngle) * MathF.PI / 180));
         canvas.DrawString(MaxValue.ToString(), maxLabelX, labelY, HorizontalAlignment.Center);
 
-        // »æÖÆµ±Ç°Öµ±êÇ©
+        // ï¿½ï¿½ï¿½Æµï¿½Ç°Öµï¿½ï¿½Ç©
         // Draw the current value label
         canvas.FontSize = LabelFontSize;
         float valueLabelX = centerX;
         float valueLabelY = centerY + LabelFontSize;
         canvas.DrawString(_animatedValue.ToString(ValueLableFormat), valueLabelX, valueLabelY, HorizontalAlignment.Center);
 
-        // »æÖÆµ¥Î»±êÇ©
+        // ï¿½ï¿½ï¿½Æµï¿½Î»ï¿½ï¿½Ç©
         // Draw the units label
         float unitsLabelY = valueLabelY + LabelFontSize + 8;
         canvas.DrawString(Unit, valueLabelX, unitsLabelY, HorizontalAlignment.Center);
@@ -134,18 +134,23 @@ public partial class RadialGauge : GraphicsView, IDrawable
         }
         else
         {
-            float step = (_targetValue - _animatedValue) * 0.1f;  // ¼òµ¥µÄÏßÐÔ²åÖµ // Simple linear interpolation
+            float step = (_targetValue - _animatedValue) * 0.1f;  // ï¿½òµ¥µï¿½ï¿½ï¿½ï¿½Ô²ï¿½Öµ // Simple linear interpolation
             _animatedValue += step;
         }
 
-        Invalidate();  // ÇëÇóÖØ»æ¿Ø¼þ // Request a redraw of the control
+        SafeInvalidate();  // è¯·æ±‚é‡ç»˜æŽ§ä»¶ // Request a redraw of the control
+    }
+
+    private void SafeInvalidate()
+    {
+        this.Dispatcher.Dispatch(() => Invalidate());
     }
 
     public RadialGauge()
     {
         Drawable = this;
 
-        _animationTimer = new System.Timers.Timer(16);  // ÉèÖÃ¶¯»­Ö¡ÂÊÎª60fps // Set the animation frame rate to 60fps
+        _animationTimer = new System.Timers.Timer(16);  // ï¿½ï¿½ï¿½Ã¶ï¿½ï¿½ï¿½Ö¡ï¿½ï¿½Îª60fps // Set the animation frame rate to 60fps
         _animationTimer.Elapsed += OnAnimationTick;
     }
 
