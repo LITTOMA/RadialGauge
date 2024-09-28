@@ -24,7 +24,11 @@
                 NeedleThickness="5"
                 TickLength="5"
                 WidthRequest="400"
-                Value="9" />
+                Value="9">
+                <rg:RadialGauge.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+                </rg:RadialGauge.GestureRecognizers>
+            </rg:RadialGauge>
 
             <Image
                 HeightRequest="200"
