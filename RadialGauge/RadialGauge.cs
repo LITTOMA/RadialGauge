@@ -108,13 +108,13 @@ public partial class RadialGauge : GraphicsView, IDrawable
         float valueLabelY = centerY + LabelFontSize;
 #if IOS
         canvas.DrawString(
-            _animatedValue.ToString(ValueLableFormat),
+            _animatedValue.ToString(ValueLabelFormat),
             valueLabelX, valueLabelY,
             100, 100,
             HorizontalAlignment.Left, VerticalAlignment.Top,
             TextFlow.OverflowBounds);
 #else
-        canvas.DrawString(_animatedValue.ToString(ValueLableFormat), valueLabelX, valueLabelY, HorizontalAlignment.Center);
+        canvas.DrawString(_animatedValue.ToString(ValueLabelFormat), valueLabelX, valueLabelY, HorizontalAlignment.Center);
 #endif
 
         // 绘制单位标签
