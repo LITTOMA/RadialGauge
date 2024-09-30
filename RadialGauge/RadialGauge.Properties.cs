@@ -261,6 +261,20 @@ public partial class RadialGauge
         set => SetValue(NeedleColorProperty, value);
     }
 
+    public static readonly BindableProperty TickColorProperty =
+        BindableProperty.Create(
+            nameof(TickColor),
+            typeof(Color),
+            typeof(RadialGauge),
+            Colors.Black,
+            propertyChanged: OnInvalidate);
+
+    public Color TickColor
+    {
+        get => (Color)GetValue(TickColorProperty);
+        set => SetValue(TickColorProperty, value);
+    }
+
     public static readonly BindableProperty ValueLabelFormatProperty =
         BindableProperty.Create(
             nameof(ValueLabelFormat),

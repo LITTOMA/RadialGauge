@@ -65,13 +65,14 @@ public partial class RadialGauge : GraphicsView, IDrawable
 
             // 绘制刻度线
             // Draw the tick line
-            canvas.StrokeColor = Colors.Black;
+            canvas.StrokeColor = TickColor;
             canvas.StrokeSize = 2;
             canvas.DrawLine(tickStart.X, tickStart.Y, tickEnd.X, tickEnd.Y);
         }
 
         float labelY = centerY + (radius * MathF.Sin(StartAngle * MathF.PI / 180)) + LabelFontSize + GaugeArcThickness;
         canvas.FontSize = LabelFontSize;
+        canvas.FontColor = LabelFontColor;
 
         // 绘制最小值标签
         // Draw the minimum value label
