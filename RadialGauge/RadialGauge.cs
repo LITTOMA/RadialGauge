@@ -70,6 +70,13 @@ public partial class RadialGauge : GraphicsView, IDrawable
             canvas.DrawLine(tickStart.X, tickStart.Y, tickEnd.X, tickEnd.Y);
         }
 
+        // 在表盘内测绘制一个红色的圆圈，用于标记警告值
+        // Draw a red circle inside the gauge to mark the alert value
+        var alertAngle = CalculateAngle((AlertValue - MinValue) / (MaxValue - MinValue));
+        var alertPoint = CalculatePoint(centerX, centerY, radius - TickLength - GaugeArcThickness - 10, alertAngle);
+        canvas.FillColor = Colors.Red;
+        canvas.FillCircle(alertPoint.X, alertPoint.Y, 4);
+
         float labelY = centerY + (radius * MathF.Sin(StartAngle * MathF.PI / 180)) + LabelFontSize + GaugeArcThickness;
         canvas.FontSize = LabelFontSize;
         canvas.FontColor = LabelFontColor;
