@@ -20,9 +20,9 @@
 		<Copyright>2023 (c) LITTOMA</Copyright>
 		<PackageProjectUrl>https://github.com/LITTOMA/RadialGauge</PackageProjectUrl>
 		<PackageTags>radial gauge;maui;</PackageTags>
-		<PackageReleaseNotes>Fix rendering issues.</PackageReleaseNotes>
+		<PackageReleaseNotes>Add lable font color and alert point.</PackageReleaseNotes>
 		<Authors>LITTOMA</Authors>
-		<Version>1.0.3</Version>
+		<Version>1.0.4</Version>
 	</PropertyGroup>
 
 	<ItemGroup>

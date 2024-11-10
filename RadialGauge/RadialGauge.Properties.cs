@@ -219,6 +219,20 @@ public partial class RadialGauge
         set => SetValue(AlertFillColorProperty, value);
     }
 
+    public static readonly BindableProperty ShowAlertPointProperty = 
+        BindableProperty.Create(
+            nameof(ShowAlertPoint),
+            typeof(bool),
+            typeof(RadialGauge),
+            false,
+            propertyChanged: OnInvalidate);
+
+    public bool ShowAlertPoint
+    {
+        get => (bool)GetValue(ShowAlertPointProperty);
+        set => SetValue(ShowAlertPointProperty, value);
+    }
+
     public static readonly BindableProperty LabelFontSizeProperty =
         BindableProperty.Create(
             nameof(LabelFontSize),
